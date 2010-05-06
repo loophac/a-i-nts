@@ -1,0 +1,16 @@
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\ant.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\pheromone.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\antHill.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\food.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\ant.png
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\pheromone.png
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Aints.exe
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Aints.pdb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\obj\x86\Debug\Aints.exe
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\obj\x86\Debug\Aints.pdb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\map.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\map_new.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\map2.xnb
+C:\Users\eric\Documents\Visual Studio 2008\Projects\WindowsGame2\bin\x86\Debug\Content\map2-2.xnb
