@@ -200,8 +200,11 @@ namespace Aints
 		{
 			base.DoMovement(gameTime);
 			pheromonesTick++;
-			if ((foodCarried > 0 && pheromonesTick > ConstantsHolder.Singleton.PheromonesFood)
-				|| pheromonesTick > ConstantsHolder.Singleton.PheromonesNoFood)
+			if ((foodCarried > 0 
+				&& pheromonesTick > ConstantsHolder.Singleton.PheromonesFood
+				&& ConstantsHolder.Singleton.PheromonesFood != 0)
+				|| (pheromonesTick > ConstantsHolder.Singleton.PheromonesNoFood
+				&& ConstantsHolder.Singleton.PheromonesNoFood != 0))
 			{
 				pheromonesTick = 0;
 				dropPheromone(TypePheromone.food);

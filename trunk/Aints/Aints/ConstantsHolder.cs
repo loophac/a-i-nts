@@ -48,10 +48,10 @@ namespace Aints
 		  Description("Maximum amount of hit points for an ant")]
 		public int LifeMax { get; set; }
 		[CategoryAttribute("Ants Properties"),
-		  Description("Pheromones dropping period when no food is carried")]
+		  Description("Pheromones dropping period when no food is carried (0 means nothing is dropped)")]
 		public int PheromonesNoFood { get; set; }
 		[CategoryAttribute("Ants Properties"),
-		  Description("Pheromones dropping period when the ant do carry food")]
+		  Description("Pheromones dropping period when the ant do carry food (0 means nothing is dropped)")]
 		public int PheromonesFood { get; set; }
 		[CategoryAttribute("Ants Properties"),
 		  Description("Maximum quantity of food carried by one ant")]
