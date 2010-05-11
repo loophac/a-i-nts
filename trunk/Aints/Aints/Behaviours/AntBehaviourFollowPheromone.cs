@@ -54,7 +54,7 @@ namespace Aints.Behaviours
             Vector2 foodAttraction = pheromonesAttraction(owner.Position, TypePheromone.food);
             Vector2 attraction = ((Ant)owner).WarLover*warAttraction + (1-((Ant)owner).WarLover)*foodAttraction;
 			Vector2 ret = ((Ant)owner).PheromoneLover * attraction;
-			ret.Normalize();
+			//ret.Normalize();
 			return ret;
         }
     }
