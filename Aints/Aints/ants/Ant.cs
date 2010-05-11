@@ -125,7 +125,7 @@ namespace Aints
 			hungry = 0;
 			life = ConstantsHolder.Singleton.LifeMax;
 			pheromonesTick = 0;
-
+            Origin = new Vector2(5, 5);
 			// make sure it loads and draws
 			DrawOrder = 50;
 			UpdateOrder = 50;
