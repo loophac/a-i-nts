@@ -18,3 +18,7 @@ C:\Users\eric\Documents\Visual Studio 2008\Projects\SurfaceApplication7\bin\x86\
 C:\Users\eric\Documents\Visual Studio 2008\Projects\SurfaceApplication7\bin\x86\Debug\Content\map_new.xnb
 C:\Users\eric\Documents\Visual Studio 2008\Projects\SurfaceApplication7\bin\x86\Debug\Content\map2.xnb
 C:\Users\eric\Documents\Visual Studio 2008\Projects\SurfaceApplication7\bin\x86\Debug\Content\map2-2.xnb
+C:\Documents and Settings\Raphaël\Mes documents\Visual Studio 2008\Projects\a-i-nts\Aints\Aints Surface\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Raphaël\Mes documents\Visual Studio 2008\Projects\a-i-nts\Aints\Aints Surface\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Documents and Settings\Raphaël\Mes documents\Visual Studio 2008\Projects\a-i-nts\Aints\Aints Surface\obj\x86\Debug\Aints Surface.exe
+C:\Documents and Settings\Raphaël\Mes documents\Visual Studio 2008\Projects\a-i-nts\Aints\Aints Surface\obj\x86\Debug\Aints Surface.pdb
