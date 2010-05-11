@@ -44,7 +44,7 @@ namespace Aints.Behaviours
                 attractionPhero.Normalize();
                 attractionPhero *= (float)(Main.G_PHEROMONES * pheromone.Smell / Math.Pow(Vector2.Distance(pheromone.Position, position), 3));
                 attraction += attractionPhero;
-            }
+			}
             return attraction;
         }
 
@@ -53,7 +53,9 @@ namespace Aints.Behaviours
             Vector2 warAttraction = pheromonesAttraction(owner.Position,TypePheromone.war);
             Vector2 foodAttraction = pheromonesAttraction(owner.Position, TypePheromone.food);
             Vector2 attraction = ((Ant)owner).WarLover*warAttraction + (1-((Ant)owner).WarLover)*foodAttraction;
-            return ((Ant)owner).PheromoneLover * attraction;
+			Vector2 ret = ((Ant)owner).PheromoneLover * attraction;
+			ret.Normalize();
+			return ret;
         }
     }
 }
