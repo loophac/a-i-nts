@@ -1,2 +1,1 @@
 C:\Users\eric\Documents\Visual Studio 2008\Projects\SurfaceApplication7\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Raphaël\Mes documents\Visual Studio 2008\Projects\a-i-nts\Aints\Aints Surface\Content\obj\x86\Debug\ResolveAssemblyReference.cache
