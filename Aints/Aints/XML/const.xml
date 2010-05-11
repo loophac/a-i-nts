@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConstantsHolder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LifeMax>20</LifeMax>
+  <PheromonesNoFood>1</PheromonesNoFood>
+  <PheromonesFood>1</PheromonesFood>
+  <CarryMax>10</CarryMax>
+  <Vision>20</Vision>
+  <EatingRadius>5</EatingRadius>
+  <Starvation>20</Starvation>
+  <_GlobalInertia>1</_GlobalInertia>
+  <ScoutRandom>1</ScoutRandom>
+  <ScoutGoal>1</ScoutGoal>
+  <ScoutPheromones>1</ScoutPheromones>
+  <GoFoodRandom>1</GoFoodRandom>
+  <GoFoodGoal>1</GoFoodGoal>
+  <GoFoodPheromones>1</GoFoodPheromones>
+  <BringFoodRandom>1</BringFoodRandom>
+  <BringFoodGoal>1</BringFoodGoal>
+  <BringFoodPheromones>1</BringFoodPheromones>
+</ConstantsHolder>

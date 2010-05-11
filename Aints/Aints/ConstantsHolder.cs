@@ -116,7 +116,7 @@ namespace Aints
 
 		#region XML serialization
 
-		private const string saveFile = @".\const.xml";
+        private const string saveFile = @"XML\const.xml";
 
         /// <summary>
         /// To create the first xml

@@ -16,7 +16,7 @@
     {
         lookForFood,
         bringBackFood,
-        goToFood
-
+        goToFood,
+        goAround
     }
 }

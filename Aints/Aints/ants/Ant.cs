@@ -32,6 +32,21 @@ namespace Aints
 		protected int pheromonesTick;
 		protected Vector2 previousPosition = new Vector2();
 
+        protected float goAround;
+        public float GoAround
+        {
+            get { return goAround; }
+            set { goAround = value; }
+        }
+        
+        protected float goLeft;
+        public float GoLeft
+        {
+            get { return goLeft; }
+            set { goLeft = value; }
+        }
+        
+
 		protected float goalLover;
 		public float GoalLover
 		{
