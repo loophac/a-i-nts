@@ -32,15 +32,15 @@ namespace Aints
 		protected int pheromonesTick;
 		protected Vector2 previousPosition = new Vector2();
 
-        protected float goAround;
-        public float GoAround
+        protected bool goAround;
+        public bool GoAround
         {
             get { return goAround; }
             set { goAround = value; }
         }
-        
-        protected float goLeft;
-        public float GoLeft
+
+        protected bool goLeft;
+        public bool GoLeft
         {
             get { return goLeft; }
             set { goLeft = value; }
@@ -125,7 +125,7 @@ namespace Aints
 			hungry = 0;
 			life = ConstantsHolder.Singleton.LifeMax;
 			pheromonesTick = 0;
-            Origin = new Vector2(5, 5);
+            Origin = new Vector2(8, 7);
 			// make sure it loads and draws
 			DrawOrder = 50;
 			UpdateOrder = 50;
@@ -211,30 +211,74 @@ namespace Aints
 			}
 		}
 
-		public override void CheckCollisions(GameTime gameTime)
-		{
-			Vector2 curPos = this.position;
+        public override void CheckCollisions(GameTime gameTime)
+        {
+            Vector2 curPos = this.position;
+            bool hasCollide = false;
 
-			foreach (Rectangle r in game.Obstacles)
-			{
-				if (r.Intersects(this.boundingRectangle))
-				{
-					this.Position = new Vector2(previousPosition.X, curPos.Y);
-					if (r.Intersects(this.boundingRectangle))
-					{
-						this.Position = new Vector2(curPos.X, previousPosition.Y);
-						if (r.Intersects(this.boundingRectangle))
-						{
-							this.Position = new Vector2(previousPosition.X, previousPosition.Y);
-							if (r.Intersects(this.boundingRectangle))
-							{
-								this.Kill();
-							}
-						}
-					}
-				}
-			}
-		}
+            Rectangle vue;
+            if (goAround)
+            {
+                vue = new Rectangle(boundingRectangle.X - ConstantsHolder.Singleton.Vision / 2, boundingRectangle.Y - ConstantsHolder.Singleton.Vision / 2, boundingRectangle.Width + ConstantsHolder.Singleton.Vision, boundingRectangle.Height + ConstantsHolder.Singleton.Vision);
+            }
+            else
+            {
+                vue = this.boundingRectangle;
+            }
+            foreach (Rectangle r in game.Obstacles)
+            {
+
+                if (r.Intersects(vue))
+                {
+                    hasCollide = true;
+                    if (r.Intersects(boundingRectangle))
+                    {
+                        Position -= Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (r.Intersects(this.boundingRectangle))
+                        {
+                            this.Kill();
+                        }
+                        else
+                        {
+                            //each time we collide for the first time we choose a direction
+                            //TODO make the random linked to pheromones
+                            if (!goAround)
+                            {
+                                if (game.Random.Next(2) == 0)
+                                {
+                                    goLeft = true;
+                                }
+                                else
+                                {
+                                    goLeft = false;
+                                }
+                            }
+                            float angleDirection = (float)Math.Atan2(Velocity.Y, Velocity.X);
+
+                            if (goLeft)
+                            {
+                                angleDirection += 0.3f;
+                            }
+                            else
+                            {
+                                angleDirection -= 0.3f;
+                            }
+                            Velocity = Velocity.Length() * new Vector2((float)Math.Cos(angleDirection), (float)Math.Sin(angleDirection));
+                            Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            Rotation = (float)Math.Atan2(Velocity.Y, Velocity.X);
+                            if (r.Intersects(this.boundingRectangle))
+                            {
+                                Position -= Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            }
+                        }
+                    }
+
+                }
+            }
+            goAround = hasCollide;
+
+
+        }		
 
 		protected override void UpdateBoundingRectangle()
 		{

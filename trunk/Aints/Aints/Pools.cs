@@ -50,8 +50,8 @@ namespace Aints
 					p = PoolPheromones[PoolPheromones.Count - 1];
 					PoolPheromones.RemoveAt(PoolPheromones.Count - 1);
 				}
-                game.Components.Add(p);
-                ((Main)game).PheromonesFood.Add(p);
+                //game.Components.Add(p);
+                //game.PheromonesFood.Add(p);
 				p.Type = type;
                 p.Smell = smell;
 				p.Position = position;
