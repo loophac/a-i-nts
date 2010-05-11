@@ -25,7 +25,7 @@ namespace Aints.Behaviours
         override public Vector2 RunBehaviour()
         {
             Vector2 ret = ((Ant)owner).InertiaLover * owner.Velocity;
-			ret.Normalize();
+			//ret.Normalize();
 			return ret;
         }
     }

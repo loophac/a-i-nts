@@ -24,7 +24,7 @@ namespace Aints.Behaviours
         override public Vector2 RunBehaviour()
         {
 			Vector2 ret = ((Ant)owner).RandomLover * (new Vector2((float)game.Random.NextDouble() - 0.5f, (float)game.Random.NextDouble() - 0.5f));
-			ret.Normalize();
+			//ret.Normalize();
 			return ret;
         }
     }
