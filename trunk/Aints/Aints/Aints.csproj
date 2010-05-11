@@ -101,7 +101,6 @@
     <Compile Include="ants\Ant.cs" />
     <Compile Include="ants\AntWarrior.cs" />
     <Compile Include="ants\AntWorker.cs" />
-    <Compile Include="ants\Colony.cs" />
     <Compile Include="Behaviours\AntBehaviourFollowGoal.cs" />
     <Compile Include="Behaviours\AntBehaviourFollowPheromone.cs" />
     <Compile Include="Behaviours\AntBehaviourInertia.cs" />
