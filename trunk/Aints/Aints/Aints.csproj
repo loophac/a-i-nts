@@ -39,6 +39,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <StartupObject>Aints.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +82,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -105,7 +108,9 @@
     <Compile Include="Behaviours\AntBehaviourRandom.cs" />
     <Compile Include="Behaviours\AntHungerBehaviour.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
-    <Compile Include="ConstantsForm.cs" />
+    <Compile Include="ConstantsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ConstantsForm.designer.cs">
       <DependentUpon>ConstantsForm.cs</DependentUpon>
     </Compile>
