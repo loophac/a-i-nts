@@ -23,9 +23,7 @@ namespace Aints
 		private int frameCounter = 0;
 		private TimeSpan elapsedTime = TimeSpan.Zero;
 
-
-
-        public FpsCounter(Main game, Vector2 position)
+		public FpsCounter(Main game, Vector2 position)
             : base(game)
         {
 			this.game = game;
@@ -61,9 +59,9 @@ namespace Aints
 			{
 				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
 
-				spriteBatch.DrawString(font, fps, position + new Vector2(1), Color.Black);
+				spriteBatch.DrawString(font, fps, position + Vector2.One, Color.Black);
 				spriteBatch.DrawString(font, fps, position, Color.White);
-
+				
 				spriteBatch.End();
 			}
         }

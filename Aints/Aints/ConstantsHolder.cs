@@ -153,7 +153,7 @@ namespace Aints
         /// Opens the instance stored in the saveFile
         /// </summary>
         /// <returns>red class instance</returns>
-        public static ConstantsHolder OpenXml()
+        private static ConstantsHolder OpenXml()
         {
             StreamReader R = null;
 
