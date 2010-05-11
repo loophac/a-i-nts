@@ -15,6 +15,8 @@ namespace Aints
 {
     public class AntHill:GameObject
     {
+        protected int larva;
+        protected float lavraPerSec;
         protected float food;
         public float Food
         {
@@ -31,6 +33,10 @@ namespace Aints
         {
             base.LoadContent();
             Sprite = game.Content.Load<Texture2D>("antHill");
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
 
     }
