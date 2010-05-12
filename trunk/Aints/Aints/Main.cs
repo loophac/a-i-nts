@@ -42,15 +42,14 @@ namespace Aints
 		{
 			get { return ants; }
 		}
-
-		protected List<Pheromone> pheromonesFood = new List<Pheromone>();
-		public List<Pheromone> PheromonesFood
+		protected DoubleSortedList pheromonesFood = new DoubleSortedList();
+		public DoubleSortedList PheromonesFood
 		{
 			get { return pheromonesFood; }
 		}
 
-		protected List<Pheromone> pheromonesWar = new List<Pheromone>();
-		public List<Pheromone> PheromonesWar
+		protected DoubleSortedList pheromonesWar = new DoubleSortedList();
+		public DoubleSortedList PheromonesWar
 		{
 			get { return pheromonesWar; }
 		}
@@ -104,6 +103,7 @@ namespace Aints
 		{
             Content.RootDirectory = "Content";
 			new FpsCounter(this, new Vector2(graphics.GraphicsDevice.Viewport.Width - 25, 5)); //displays FPS
+			new Map(this);
 
 			ConstantsForm c = new ConstantsForm();
 			c.Show();
