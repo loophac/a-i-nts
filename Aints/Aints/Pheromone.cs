@@ -66,6 +66,14 @@ namespace Aints
         {
             base.Kill();
             game.Reservoir.putBack(this);
+			if (this.type == TypePheromone.food)
+			{
+				this.game.PheromonesFood.Remove(this);
+			}
+			else if (this.type == TypePheromone.war)
+			{
+				this.game.PheromonesWar.Remove(this);
+			}
         }
 
 		public override void Draw(GameTime gameTime)

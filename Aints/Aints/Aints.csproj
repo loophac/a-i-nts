@@ -114,6 +114,7 @@
       <DependentUpon>ConstantsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ConstantsHolder.cs" />
+    <Compile Include="DoubleSortedList.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FpsCounter.cs" />

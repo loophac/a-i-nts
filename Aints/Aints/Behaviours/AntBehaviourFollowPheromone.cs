@@ -26,14 +26,14 @@ namespace Aints.Behaviours
         {
             Vector2 attraction = Vector2.Zero;
             Vector2 attractionPhero;
-            List<Pheromone> scanPheromones;
+			IList<Pheromone> scanPheromones;
             if (type == TypePheromone.food)
             {
-                scanPheromones = game.PheromonesFood;
+                scanPheromones = game.PheromonesFood.list;
             }
             else if (type == TypePheromone.war)
             {
-                scanPheromones = game.PheromonesWar;
+                scanPheromones = game.PheromonesWar.list;
             }
             else
             {
