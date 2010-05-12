@@ -19,7 +19,7 @@ namespace Aints
     /// </summary>
     public class Main : Microsoft.Xna.Framework.Game
 	{
-		public const float G_PHEROMONES = 1f;
+		public const float G_PHEROMONES = 100000f;
         public const int NUMBER_FOOD = 15;
         public const int NUMBER_ANTS = 100;
 
