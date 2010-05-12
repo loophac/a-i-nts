@@ -26,7 +26,7 @@ namespace Aints
     /// sprite
     /// boundingRectancle
     /// </summary>
-	public abstract class Ant : GameObject
+	public class Ant : GameObject
 	{
 		#region props
 		protected int pheromonesTick;
