@@ -15,7 +15,7 @@ namespace Aints.Behaviours
 {
     class AntBehaviourFollowPheromone : Behaviour
     {
-        protected const float TOLERANCE=10; 
+        protected const float TOLERANCE=30; 
         public AntBehaviourFollowPheromone(Main game, GameObject owner)
         {
             this.game = game;
@@ -26,7 +26,8 @@ namespace Aints.Behaviours
         {
             Vector2 attraction = Vector2.Zero;
             Vector2 attractionPhero;
-			IList<Pheromone> scanPheromones;
+			IList<Pheromone> scanPheromones ;
+            
             if (type == TypePheromone.food)
             {
                 scanPheromones = game.PheromonesFood.list;
@@ -39,7 +40,14 @@ namespace Aints.Behaviours
             {
                 return attraction;
             }
-            foreach (Pheromone pheromone in scanPheromones)
+            float smellXmin = owner.Position.X - TOLERANCE;
+            float smellXmax = owner.Position.X + TOLERANCE;
+            float smellYmin = owner.Position.Y - TOLERANCE;
+            float smellYmax = owner.Position.Y + TOLERANCE;
+
+            IEnumerable<Pheromone> selected = scanPheromones.TakeWhile(pheromone => pheromone.Position.X < smellXmin && pheromone.Position.X >smellXmax);
+            selected = selected.TakeWhile(pheromone => pheromone.Position.Y <smellYmin && pheromone.Position.Y > smellYmax);
+            foreach (Pheromone pheromone in selected)
             {
                 attractionPhero = (position - pheromone.Position);
                 float distance = attractionPhero.Length();
