@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-using Aints.ants;
 
 namespace Aints
 {
@@ -115,7 +114,7 @@ namespace Aints
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)
             {
-                ants.Add(reservoir.pickWorker(new Vector2(), 0f, 0));
+                ants.Add(reservoir.pickAnt(new Vector2(), 0f, 0));
             }
 
             //ajout de la bouffe
