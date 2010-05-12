@@ -56,7 +56,7 @@ namespace Aints
 				p.Enabled = true;
 				p.Visible = true;
 				game.Components.Add(p);
-				//game.PheromonesFood.Add(p);
+				game.PheromonesFood.Add(p);
 				return p;
 			}
 		}
