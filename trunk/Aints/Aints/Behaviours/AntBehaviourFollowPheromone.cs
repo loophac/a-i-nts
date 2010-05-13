@@ -32,11 +32,11 @@ namespace Aints.Behaviours
             
             if (type == TypePheromone.food)
             {
-                scanPheromones = game.PheromonesFood.list;
+                scanPheromones = game.PheromonesFood.Values;
             }
             else if (type == TypePheromone.war)
             {
-                scanPheromones = game.PheromonesWar.list;
+                scanPheromones = game.PheromonesWar.Values;
             }
             else
             {

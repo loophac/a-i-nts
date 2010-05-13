@@ -112,13 +112,12 @@
       <DependentUpon>ConstantsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ConstantsHolder.cs" />
-    <Compile Include="DoubleSortedList.cs" />
+    <Compile Include="PheroSortedList.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FpsCounter.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Map.cs" />
     <Compile Include="Pheromone.cs" />
     <Compile Include="Pools.cs" />
     <Compile Include="Program.cs" />

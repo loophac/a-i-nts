@@ -15,8 +15,7 @@ namespace Aints
 {
     public class Pheromone : GameObject
     {
-		public const float SMELL_MAX = 100;
-		public const float SMELL_HALF = SMELL_MAX/2f;
+		public const float SMELL_INIT = 100;
         private const float CONDITION_DISPARITION = 20f;
         private const float EVAPORATION = 0.995f;
 		
@@ -65,7 +64,6 @@ namespace Aints
         public override void Kill()
         {
             base.Kill();
-            game.Reservoir.putBack(this);
 			if (this.type == TypePheromone.food)
 			{
 				this.game.PheromonesFood.Remove(this);
@@ -74,11 +72,12 @@ namespace Aints
 			{
 				this.game.PheromonesWar.Remove(this);
 			}
+			game.Reservoir.putBack(this);
         }
 
 		public override void Draw(GameTime gameTime)
 		{
-			byte alpha = (byte)(smell * 2.5f);
+			byte alpha = (byte)Math.Min(smell * 2.5f, 255f);
 			SpriteBatch spriteBatch = game.SpriteBatch;
 			if (Sprite != null)
 			{
