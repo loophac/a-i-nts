@@ -366,7 +366,7 @@ namespace Aints
 
 		protected void dropPheromone(TypePheromone type)
 		{
-			game.Reservoir.pickPheromone(type, position, Pheromone.SMELL_MAX);
+			game.Reservoir.pickPheromone(type, position, Pheromone.SMELL_INIT);
 		}
 	}
 }

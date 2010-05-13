@@ -52,7 +52,10 @@ namespace Aints
 				p.Enabled = true;
 				p.Visible = true;
 				game.Components.Add(p);
-				game.PheromonesFood.Add(p);
+				if(type == TypePheromone.food)
+					game.PheromonesFood.Add(p);
+				else
+					game.PheromonesWar.Add(p);
 				return p;
 			}
 		}

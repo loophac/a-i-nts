@@ -64,7 +64,12 @@ namespace Aints
 		public int EatingRadius { get; set; }
 		[CategoryAttribute("Ants Properties"),
 		  Description("An ant dies if it becomes more hungry than this value")]
-		public int Starvation { get; set; } 
+		public int Starvation { get; set; }
+
+
+		[CategoryAttribute("World Properties"),
+		  Description("Two pheromones are fusionned into one if they are closer than this value.")]
+		public float PheroFusionRadius { get; set; }
 
 		#endregion
 
