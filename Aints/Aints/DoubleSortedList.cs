@@ -29,8 +29,14 @@ namespace Aints
 
 		public void Add(Pheromone p)
 		{
-			byX.Add(p.Position.X, p);
-			byY.Add(p.Position.Y, p);
+            //TODO make something coherant here 
+            try
+            {
+                byX.Add(p.Position.X, p);
+                
+                    byY.Add(p.Position.Y, p);
+                }
+                catch(ArgumentException) { }
 		}
 
 		public bool Remove(Pheromone p)

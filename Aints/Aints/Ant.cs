@@ -176,7 +176,7 @@ namespace Aints
 		{
 			base.SetupBehaviours();
 
-			this.behaviours.Add(new Behaviours.AntBehaviourFollowPheromone(game, this));
+			this.behaviours.Add(new Behaviours.AntBehaviourFollowPheromone(game, this,false));
 			this.behaviours.Add(new Behaviours.AntBehaviourRandom(game, this));
 			this.behaviours.Add(new Behaviours.AntBehaviourFollowGoal(game, this));
 			this.behaviours.Add(new Behaviours.AntBehaviourInertia(game, this));

@@ -15,11 +15,13 @@ namespace Aints.Behaviours
 {
     class AntBehaviourFollowPheromone : Behaviour
     {
-        protected const float TOLERANCE=100; 
-        public AntBehaviourFollowPheromone(Main game, GameObject owner)
+        protected const float TOLERANCE=100;
+        protected bool totalAngle;
+        public AntBehaviourFollowPheromone(Main game, GameObject owner, bool totalAngle)
         {
             this.game = game;
             this.owner = owner;
+            this.totalAngle = totalAngle;
         }
 
         public Vector2 pheromonesAttraction(Vector2 position, TypePheromone type)
@@ -52,7 +54,7 @@ namespace Aints.Behaviours
                 attractionPhero = (position - pheromone.Position);
                 float distance = attractionPhero.Length();
                 float scallarProduct = attractionPhero.X * owner.Velocity.X + attractionPhero.Y * owner.Velocity.Y;
-                if (scallarProduct > 0 && distance <TOLERANCE)
+                if ((totalAngle || scallarProduct > 0) && distance <TOLERANCE)
                 {
                     attractionPhero.Normalize();
                     attractionPhero *=(Main.G_PHEROMONES * pheromone.Smell / (distance*distance*distance));                

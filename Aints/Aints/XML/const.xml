@@ -13,8 +13,8 @@
   <ScoutPheromones>2</ScoutPheromones>
   <GoFoodRandom>100</GoFoodRandom>
   <GoFoodGoal>50</GoFoodGoal>
-  <GoFoodPheromones>5</GoFoodPheromones>
+  <GoFoodPheromones>30</GoFoodPheromones>
   <BringFoodRandom>100</BringFoodRandom>
   <BringFoodGoal>50</BringFoodGoal>
-  <BringFoodPheromones>5</BringFoodPheromones>
+  <BringFoodPheromones>30</BringFoodPheromones>
 </ConstantsHolder>
