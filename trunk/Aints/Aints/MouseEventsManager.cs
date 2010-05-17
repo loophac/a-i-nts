@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Aints
 {
-	public class MouseEvents : DrawableGameComponent
+	public class MouseEventsManager : DrawableGameComponent
 	{
 		private Main game;
 
@@ -25,7 +25,7 @@ namespace Aints
 		private ButtonState prevButtonRight = ButtonState.Released;
 		private ButtonState prevButtonMiddle = ButtonState.Released;
 
-		public MouseEvents(Main game) : base(game)
+		public MouseEventsManager(Main game) : base(game)
 		{
 			this.game = game;
 			game.Components.Add(this);

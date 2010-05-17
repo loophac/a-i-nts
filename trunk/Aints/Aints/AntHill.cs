@@ -30,12 +30,13 @@ namespace Aints
 		private TextWriter tw;
 		private float prevFood;
 
-        public AntHill(Main game):base(game,true)
+        public AntHill(Main game, Vector2 position)
+			:base(game,true)
         {
             food = 2000;
 			prevFood = food;
             this.game = game;
-            Position = new Vector2(50, 50);
+            this.Position = position;
 
 			this.logFile = @".\log" + DateTime.Now.Ticks + ".txt";
 			tw = new StreamWriter(this.logFile);

@@ -332,7 +332,6 @@ namespace Aints
 					if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
 					{
 						game.AntHill.Food += foodCarried;
-						Console.WriteLine(game.AntHill.Food);
 						foodCarried = 0;
 						ChangeState(AntState.goToFood);
 					}
@@ -373,6 +372,11 @@ namespace Aints
 		protected void dropPheromone(TypePheromone type)
 		{
 			game.Reservoir.pickPheromone(type, position, Pheromone.SMELL_INIT);
+		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			base.Draw(gameTime);
 		}
 	}
 }

@@ -70,6 +70,9 @@ namespace Aints
 		[CategoryAttribute("World Properties"),
 		  Description("Two pheromones are fusionned into one if they are closer than this value.")]
 		public float PheroFusionRadius { get; set; }
+		[CategoryAttribute("World Properties"),
+		  Description("Each pheromone smell is multiplied by this value each frame.")]
+		public float PheroEvaporationRate { get; set; }
 
 		#endregion
 

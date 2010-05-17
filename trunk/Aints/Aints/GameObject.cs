@@ -150,13 +150,8 @@ namespace Aints
 
                // clamp turn rate
                 float oldAngle = (float)Math.Atan2(Velocity.Y, Velocity.X);
-                float desiredAngle = (float)Math.Atan2(newVelocity.Y, newVelocity.X);
-                float newAngle = MathHelper.Clamp(desiredAngle, WrapAngle(
-                        oldAngle - MaxTurnRadiansPerFrame),
-                        WrapAngle(oldAngle + MaxTurnRadiansPerFrame));
-                newAngle = desiredAngle;
-                Rotation = newAngle;
-                Velocity = Vector2.Normalize(new Vector2((float)Math.Cos(newAngle), (float)Math.Sin(newAngle))) * Math.Min(newVelocity.Length(),maxSpeed);
+				Rotation = (float)Math.Atan2(newVelocity.Y, newVelocity.X);
+                Velocity = Vector2.Normalize(new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation))) * Math.Min(newVelocity.Length(),maxSpeed);
                 //Velocity = newVelocity;
             }
         }
