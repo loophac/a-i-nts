@@ -143,7 +143,7 @@ namespace Aints
         /// </summary>
         protected override void UnloadContent()
         {
-            // osef
+			base.UnloadContent();
         }
 
         /// <summary>

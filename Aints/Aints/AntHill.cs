@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.IO;
 
 namespace Aints
 {
@@ -23,19 +24,42 @@ namespace Aints
             get { return this.food; }
             set { this.food = value; }
         }
+
+		private String logFile;
+		private TextWriter tw;
+		private float prevFood;
+
         public AntHill(Main game):base(game,true)
         {
             food = 2000;
+			prevFood = food;
             this.game = game;
             Position = new Vector2(50, 50);
+
+			this.logFile = @".\log" + DateTime.Now.Ticks + ".txt";
+			tw = new StreamWriter(this.logFile);
         }
+
         protected override void LoadContent()
         {
             base.LoadContent();
             Sprite = game.Content.Load<Texture2D>("antHill");
         }
+
+		protected override void UnloadContent()
+		{
+			base.UnloadContent();
+			tw.Close();
+		}
+
         public override void Update(GameTime gameTime)
         {
+			if (this.food != this.prevFood)
+			{
+				tw.WriteLine(this.food + "\t" + gameTime.TotalGameTime.Ticks);
+				prevFood = food;
+			}
+
             base.Update(gameTime);
         }
 
