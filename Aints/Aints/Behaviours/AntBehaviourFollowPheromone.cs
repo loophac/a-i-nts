@@ -50,14 +50,17 @@ namespace Aints.Behaviours
 
             Pheromone indexPhero = new Pheromone(game,false);
             indexPhero.Position = new Vector2(smellXmin,0);
-            scanPheromones.Add(indexPhero);
-            int index = scanPheromones.IndexOfValue(indexPhero);
-
+            int index;
+            try
+            {
+                scanPheromones.Add(smellXmin, indexPhero);
+                index = scanPheromones.IndexOfValue(indexPhero);
+            }catch(ArgumentException e){
+                index = scanPheromones.IndexOfKey(smellXmin);
+            }
 
             List<Pheromone> selected = new List<Pheromone>();
-            IEnumerable<Pheromone> selectedIE =scanPheromones.Values.TakeWhile(pheromone=> pheromone.Position.X <smellXmax);
-            lock (scanPheromones)
-            {
+
                 for (int i = index; i < scanPheromones.Values.Count; i++)
                 {
                     if (scanPheromones.Values[i].Position.X < smellXmax)
@@ -69,7 +72,7 @@ namespace Aints.Behaviours
                         selected.Add(scanPheromones.Values[i]);
                     }
                 }
-            }
+            
             scanPheromones.Remove(indexPhero);
             foreach (Pheromone pheromone in selected)
             {
