@@ -208,7 +208,8 @@ namespace Aints
 				&& pheromonesTick > ConstantsHolder.Singleton.PheromonesFood
 				&& ConstantsHolder.Singleton.PheromonesFood != 0)
 				|| (pheromonesTick > ConstantsHolder.Singleton.PheromonesNoFood
-				&& ConstantsHolder.Singleton.PheromonesNoFood != 0))
+				&& ConstantsHolder.Singleton.PheromonesNoFood != 0
+				&& this.state == AntState.goToFood))
 			{
 				pheromonesTick = 0;
 				dropPheromone(TypePheromone.food);
