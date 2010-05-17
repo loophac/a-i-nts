@@ -59,7 +59,7 @@ namespace Aints
 			if (current_mouse.RightButton == ButtonState.Pressed
 				&& prevButtonRight == ButtonState.Released)
 			{
-				game.Foods.Add(new Food(game, new Vector2(current_mouse.X, current_mouse.Y), 100f));
+				game.Foods.Add(new Food(game, new Vector2(current_mouse.X, current_mouse.Y), 100000f));
 			}
 
 			if (current_mouse.MiddleButton == ButtonState.Pressed

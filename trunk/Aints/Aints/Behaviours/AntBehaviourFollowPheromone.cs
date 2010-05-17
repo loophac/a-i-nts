@@ -63,7 +63,7 @@ namespace Aints.Behaviours
 
                 for (int i = index; i < scanPheromones.Values.Count; i++)
                 {
-                    if (scanPheromones.Values[i].Position.X < smellXmax)
+                    if (scanPheromones.Values[i].Position.X > smellXmax)
                     {
                         break;
                     }
@@ -76,7 +76,7 @@ namespace Aints.Behaviours
             scanPheromones.Remove(indexPhero);
             foreach (Pheromone pheromone in selected)
             {
-                attractionPhero = (position - pheromone.Position);
+                attractionPhero = (pheromone.Position - position);
                 float distance = attractionPhero.Length();
                 float scallarProduct = attractionPhero.X * owner.Velocity.X + attractionPhero.Y * owner.Velocity.Y;
                 if (totalAngle || scallarProduct > 0)
