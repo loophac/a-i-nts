@@ -27,7 +27,7 @@ namespace Aints
 					i--;
 				}
 				i = index + 1;
-				while (i < Count && Values[i].Position.X < p.Position.X - ConstantsHolder.Singleton.PheroFusionRadius)
+				while (i < Count && Values[i].Position.X < p.Position.X + ConstantsHolder.Singleton.PheroFusionRadius)
 				{
 					if (Vector2.Distance(p.Position, Values[i].Position) < ConstantsHolder.Singleton.PheroFusionRadius)
 					{
