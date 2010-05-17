@@ -74,6 +74,17 @@ namespace Aints
 		  Description("Each pheromone smell is multiplied by this value each frame.")]
 		public float PheroEvaporationRate { get; set; }
 
+
+		[CategoryAttribute("Hill Properties"),
+		  Description("number of frames between two larva being created (there is 60 frames in one second)")]
+		public int LarvaSpawnCooldown { get; set; }
+		[CategoryAttribute("Hill Properties"),
+		  Description("Under this threshold, no new ants will be produced")]
+		public float BirthMinFood { get; set; }
+		[CategoryAttribute("Hill Properties"),
+		  Description("the cost in food of a larva")]
+		public float LarvaCost { get; set; }
+
 		#endregion
 
 		#region behavior properties

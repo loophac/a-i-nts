@@ -17,8 +17,8 @@ namespace Aints
 {
     public class AntHill:GameObject
     {
-        protected int larva;
-        protected float lavraPerSec;
+		protected int larvaSpawn = ConstantsHolder.Singleton.LarvaSpawnCooldown;
+
         protected float food;
         public float Food
         {
@@ -56,11 +56,26 @@ namespace Aints
 
         public override void Update(GameTime gameTime)
         {
+			//save food evolution in a log file for analysis
 			if (this.food != this.prevFood)
 			{
 				//we ensure to have a dot to separate the decimal part, it's easier to import
 				tw.WriteLine(this.food.ToString("F", new CultureInfo("en-US")) + "\t" + gameTime.TotalGameTime.Ticks);
 				prevFood = food;
+			}
+
+			if (this.larvaSpawn-- < 0)
+			{
+				if (this.food > ConstantsHolder.Singleton.BirthMinFood)
+				{
+					this.larvaSpawn = ConstantsHolder.Singleton.LarvaSpawnCooldown;
+					game.Reservoir.pickAnt(/*Position FIXME Motherfucker !*/ Vector2.Zero, 0, 0);
+					this.food -= ConstantsHolder.Singleton.LarvaCost;
+				}
+				else
+				{
+					larvaSpawn = 0;
+				}
 			}
 
             base.Update(gameTime);

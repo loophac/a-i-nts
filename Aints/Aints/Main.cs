@@ -36,11 +36,6 @@ namespace Aints
 			get { return random; }
 		}
 
-		protected List<Ant> ants = new List<Ant>();
-		public List<Ant> Ants
-		{
-			get { return ants; }
-		}
 		protected PheroSortedList pheromonesFood = new PheroSortedList();
 		public PheroSortedList PheromonesFood
 		{
@@ -113,7 +108,7 @@ namespace Aints
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)
             {
-				ants.Add(reservoir.pickAnt(/*startingPoint*/Vector2.Zero, 0f, 0));
+				reservoir.pickAnt(/*startingPoint*/Vector2.Zero, 0f, 0);
             }
 
             //ajout de la bouffe
@@ -153,12 +148,6 @@ namespace Aints
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 

@@ -2,12 +2,16 @@
 <ConstantsHolder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LifeMax>20</LifeMax>
   <PheromonesNoFood>0</PheromonesNoFood>
-  <PheromonesFood>5</PheromonesFood>
+  <PheromonesFood>10</PheromonesFood>
   <CarryMax>10</CarryMax>
   <Vision>20</Vision>
   <EatingRadius>15</EatingRadius>
   <Starvation>20</Starvation>
-  <PheroFusionRadius>10</PheroFusionRadius>
+  <PheroFusionRadius>20</PheroFusionRadius>
+  <PheroEvaporationRate>0.999</PheroEvaporationRate>
+  <LarvaSpawnCooldown>180</LarvaSpawnCooldown>
+  <BirthMinFood>500</BirthMinFood>
+  <LarvaCost>50</LarvaCost>
   <_GlobalInertia>1.1</_GlobalInertia>
   <ScoutRandom>100</ScoutRandom>
   <ScoutGoal>-2</ScoutGoal>
