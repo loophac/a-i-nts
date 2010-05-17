@@ -169,6 +169,7 @@ namespace Aints
 		protected override void LoadContent()
 		{
 			Sprite = game.Content.Load<Texture2D>("ant");
+			this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
 		}
 
 
@@ -190,7 +191,7 @@ namespace Aints
 			//fixed
 			team = -1;
 			MaxTurnRadiansPerFrame = 1f;
-			maxSpeed = 200f;
+			maxSpeed = 150f;
 			AntHill = game.AntHill;
 
 			ChangeState(AntState.lookForFood);
@@ -225,9 +226,9 @@ namespace Aints
             {
                 vue = this.boundingRectangle;
             }
+
             foreach (Rectangle r in game.Obstacles)
             {
-
                 if (r.Intersects(vue))
                 {
                     hasCollide = true;
@@ -276,20 +277,25 @@ namespace Aints
                 }
             }
             goAround = hasCollide;
-
-
         }		
 
 		protected override void UpdateBoundingRectangle()
 		{
-			if (this.boundingRectangle.IsEmpty && this.sprite != null)
+			if (this.boundingRectangle.IsEmpty)
 			{
-				int side = Math.Max(this.sprite.Height, this.sprite.Width);
-				this.boundingRectangle = new Rectangle(0, 0, side, side);
+				if (this.sprite != null)
+				{
+					int side = Math.Max(this.sprite.Height, this.sprite.Width);
+					this.boundingRectangle = new Rectangle(0, 0, side, side);
+				}
+				else
+				{
+					//nothing ?
+				}
 			}
 			else
 			{
-				this.boundingRectangle.Location = new Point((int)position.X, (int)position.Y);
+				this.boundingRectangle.Location = new Point((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y);
 			}
 		}
 

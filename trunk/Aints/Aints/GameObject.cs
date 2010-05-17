@@ -182,7 +182,6 @@ namespace Aints
         public override void Initialize()
         {
             base.Initialize();
-            SetOriginToCentre();
         }
 
         public override void Draw(GameTime gameTime)
