@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using System.IO;
+using System.Globalization;
 
 namespace Aints
 {
@@ -56,7 +57,8 @@ namespace Aints
         {
 			if (this.food != this.prevFood)
 			{
-				tw.WriteLine(this.food + "\t" + gameTime.TotalGameTime.Ticks);
+				//we ensure to have a dot to separate the decimal part, it's easier to import
+				tw.WriteLine(this.food.ToString("F", new CultureInfo("en-US")) + "\t" + gameTime.TotalGameTime.Ticks);
 				prevFood = food;
 			}
 

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Aints
 {
-	public class RectangleDrawer : DrawableGameComponent
+	public class MouseEvents : DrawableGameComponent
 	{
 		private Main game;
 
@@ -21,9 +21,11 @@ namespace Aints
 		private Vector2 start, stop;
 
 		//assume we start the game with the button released
-		private ButtonState prevButtonState = ButtonState.Released;
+		private ButtonState prevButtonLeft = ButtonState.Released;
+		private ButtonState prevButtonRight = ButtonState.Released;
+		private ButtonState prevButtonMiddle = ButtonState.Released;
 
-		public RectangleDrawer(Main game) : base(game)
+		public MouseEvents(Main game) : base(game)
 		{
 			this.game = game;
 			game.Components.Add(this);
@@ -42,20 +44,41 @@ namespace Aints
 
 			//if button pressed
 			if (current_mouse.LeftButton == ButtonState.Pressed
-				&& prevButtonState == ButtonState.Released)
+				&& prevButtonLeft == ButtonState.Released)
 			{
 				start = new Vector2(current_mouse.X, current_mouse.Y);
 			}
-
 			//if button released
 			if (current_mouse.LeftButton == ButtonState.Released
-				&& prevButtonState == ButtonState.Pressed)
+				&& prevButtonLeft == ButtonState.Pressed)
 			{
 				stop = new Vector2(current_mouse.X, current_mouse.Y);
 				this.rectangles.Add(buildRectangle(start, stop));
 			}
 
-			prevButtonState = current_mouse.LeftButton;
+			if (current_mouse.RightButton == ButtonState.Pressed
+				&& prevButtonRight == ButtonState.Released)
+			{
+				game.Foods.Add(new Food(game, new Vector2(current_mouse.X, current_mouse.Y), 100f));
+			}
+
+			if (current_mouse.MiddleButton == ButtonState.Pressed
+				&& prevButtonMiddle == ButtonState.Released)
+			{
+				Vector2 mouse = new Vector2(current_mouse.X, current_mouse.Y);
+				for (int i = 0; i < game.PheromonesFood.Values.Count; i++)
+				{
+					Pheromone p = game.PheromonesFood.Values[i];
+					if (Vector2.Distance(p.Position, mouse) < 50)
+					{
+						p.Kill();
+					}
+				}
+			}
+
+			prevButtonLeft = current_mouse.LeftButton;
+			prevButtonRight = current_mouse.RightButton;
+			prevButtonMiddle = current_mouse.MiddleButton;
 		}
 
 		public override void Draw(GameTime gameTime)

@@ -79,7 +79,7 @@ namespace Aints
             get { return this.foodPosition; }
         }
 
-		private RectangleDrawer rd;
+		private MouseEvents rd;
 		public List<Rectangle> Obstacles
 		{
 			get { return this.rd.Rectangles; }
@@ -106,7 +106,7 @@ namespace Aints
 			ConstantsForm c = new ConstantsForm();
 			c.Show();
 
-			rd = new RectangleDrawer(this);
+			rd = new MouseEvents(this);
             antHill = new AntHill(this) ;
 			this.reservoir = new Pools(this);
 
