@@ -13,9 +13,9 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Aints.Behaviours
 {
-    class AntBehaviourFollowPheromone : Behaviour
+    public class AntBehaviourFollowPheromone : Behaviour
     {
-        protected const float TOLERANCE=100;
+        protected const float TOLERANCE=200;
         protected bool totalAngle;
         public AntBehaviourFollowPheromone(Main game, GameObject owner, bool totalAngle)
         {
@@ -28,15 +28,15 @@ namespace Aints.Behaviours
         {
             Vector2 attraction = Vector2.Zero;
             Vector2 attractionPhero;
-			IList<Pheromone> scanPheromones ;
+			PheroSortedList scanPheromones ;
             
             if (type == TypePheromone.food)
             {
-                scanPheromones = game.PheromonesFood.Values;
+                scanPheromones = game.PheromonesFood;
             }
             else if (type == TypePheromone.war)
             {
-                scanPheromones = game.PheromonesWar.Values;
+                scanPheromones = game.PheromonesWar;
             }
             else
             {
@@ -47,14 +47,31 @@ namespace Aints.Behaviours
             float smellYmin = owner.Position.Y - TOLERANCE;
             float smellYmax = owner.Position.Y + TOLERANCE;
 
-            IEnumerable<Pheromone> selected = scanPheromones.TakeWhile(pheromone => pheromone.Position.X > smellXmin && pheromone.Position.X <smellXmax);
-            selected = selected.TakeWhile(pheromone => pheromone.Position.Y >smellYmin && pheromone.Position.Y < smellYmax);
+
+            Pheromone indexPhero = new Pheromone(game,false);
+            indexPhero.Position = new Vector2(smellXmin,0);
+            scanPheromones.Add(indexPhero);
+            int index = scanPheromones.IndexOfKey(smellXmin);
+            scanPheromones.Remove(indexPhero);
+            List<Pheromone> selected = new List<Pheromone>();
+            IEnumerable<Pheromone> selectedIE =scanPheromones.Values.TakeWhile(pheromone=> pheromone.Position.X <smellXmax);
+             for (int i = index; i < scanPheromones.Values.Count; i++)
+            {
+               if(scanPheromones.Values[i].Position.X <smellXmax){
+                break;
+               }
+               if (scanPheromones.Values[i].Position.Y > smellYmin && scanPheromones.Values[i].Position.Y < smellYmax)
+               {
+                   selected.Add(scanPheromones.Values[i]); 
+               }
+            }
+            
             foreach (Pheromone pheromone in selected)
             {
                 attractionPhero = (position - pheromone.Position);
                 float distance = attractionPhero.Length();
                 float scallarProduct = attractionPhero.X * owner.Velocity.X + attractionPhero.Y * owner.Velocity.Y;
-                if ((totalAngle || scallarProduct > 0) && distance <TOLERANCE)
+                if (totalAngle || scallarProduct > 0)
                 {
                     attractionPhero.Normalize();
                     attractionPhero *=(Main.G_PHEROMONES * pheromone.Smell / (distance*distance*distance));                

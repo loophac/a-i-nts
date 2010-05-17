@@ -29,6 +29,8 @@ namespace Aints
 	public class Ant : GameObject
 	{
 		#region props
+        protected Behaviours.AntBehaviourFollowPheromone choicePheromones;
+
 		protected int pheromonesTick;
 		protected Vector2 previousPosition = new Vector2();
 
@@ -126,6 +128,7 @@ namespace Aints
 			life = ConstantsHolder.Singleton.LifeMax;
 			pheromonesTick = 0;
             Origin = new Vector2(8, 7);
+            choicePheromones = new Aints.Behaviours.AntBehaviourFollowPheromone(game, this, true);
 			// make sure it loads and draws
 			DrawOrder = 50;
 			UpdateOrder = 50;
@@ -243,18 +246,32 @@ namespace Aints
                         {
                             //each time we collide for the first time we choose a direction
                             //TODO make the random linked to pheromones
+                            float angleDirection = (float)Math.Atan2(Velocity.Y, Velocity.X);
                             if (!goAround)
                             {
-                                if (game.Random.Next(2) == 0)
+                                Vector2 Attraction  = choicePheromones.RunBehaviour();
+                                Vector2 ifLeft = Velocity.Length() * new Vector2((float)Math.Cos(angleDirection-0.3), (float)Math.Sin(angleDirection-0.3));
+                                float scalar1 = Attraction.X*ifLeft.X + Attraction.Y*ifLeft.Y;
+                                float scalar2 = Attraction.X * Velocity.X + Attraction.Y * Velocity.Y;
+
+
+                                double ran = game.Random.NextDouble();
+                                bool isLeft = false;
+                                if (scalar1 > scalar2)
                                 {
-                                    goLeft = true;
+                                    isLeft = true;
+                                }
+                                Math.Exp(ran);
+                                double threshold = 0.5 + 0.5 * (1 - Math.Exp(-Math.Abs(scalar1)));
+                                if (ran < threshold)
+                                {
+                                    goLeft = isLeft;
                                 }
                                 else
                                 {
-                                    goLeft = false;
+                                    goLeft = !isLeft;
                                 }
                             }
-                            float angleDirection = (float)Math.Atan2(Velocity.Y, Velocity.X);
 
                             if (goLeft)
                             {
