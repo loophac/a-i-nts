@@ -8,7 +8,7 @@ namespace Aints
 {
 	public class Pools
 	{
-		private const int POOL_SIZE_ANTS = 100;
+		private const int POOL_SIZE_ANTS = 1000;
 		private const int POOL_SIZE_PHEROMONES = 10000;
 
 		private List<Ant> PoolAnts;

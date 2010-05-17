@@ -19,7 +19,7 @@ namespace Aints
     public class Main : Microsoft.Xna.Framework.Game
 	{
 		public const float G_PHEROMONES = 100000f;
-        public const int NUMBER_FOOD = 15;
+        public const int NUMBER_FOOD = 20;
         public const int NUMBER_ANTS = 100;
 
 		#region props
@@ -72,14 +72,7 @@ namespace Aints
             set { this.foods = value; }
         }
 
-        //TODO rendre ça plus variable 
-        protected Vector2 foodPosition= new Vector2(700,100);
-        public Vector2 FoodPosition
-        {
-            get { return this.foodPosition; }
-        }
-
-		private MouseEvents rd;
+		private MouseEventsManager rd;
 		public List<Rectangle> Obstacles
 		{
 			get { return this.rd.Rectangles; }
@@ -100,26 +93,33 @@ namespace Aints
         /// </summary>
         protected override void Initialize()
 		{
+			//to go full HD !
+			//graphics.PreferredBackBufferWidth = 1920;
+			//graphics.PreferredBackBufferHeight = 1080;
+			//graphics.IsFullScreen = true;
+			//graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
 			new FpsCounter(this, new Vector2(graphics.GraphicsDevice.Viewport.Width - 25, 5)); //displays FPS
 
 			ConstantsForm c = new ConstantsForm();
 			c.Show();
 
-			rd = new MouseEvents(this);
-            antHill = new AntHill(this) ;
+			rd = new MouseEventsManager(this);
+			Vector2 startingPoint = new Vector2(Random.Next(GraphicsDevice.Viewport.Width), Random.Next(GraphicsDevice.Viewport.Height));
+			antHill = new AntHill(this, startingPoint);
 			this.reservoir = new Pools(this);
 
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)
             {
-                ants.Add(reservoir.pickAnt(new Vector2(), 0f, 0));
+				ants.Add(reservoir.pickAnt(/*startingPoint*/Vector2.Zero, 0f, 0));
             }
 
             //ajout de la bouffe
             for (int i = 0; i < NUMBER_FOOD; i++)
             {
-                Foods.Add(new Food(this, new Vector2(Random.Next(50,700),Random.Next(50,600)),Random.Next(100,500)));
+                Foods.Add(new Food(this, new Vector2(Random.Next(GraphicsDevice.Viewport.Width),Random.Next(GraphicsDevice.Viewport.Height)),500));
             }
 
 			this.IsMouseVisible = true;

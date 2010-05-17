@@ -13,7 +13,20 @@ namespace Aints
 		{
 			lock (this)
 			{
-				Add(p.Position.X, p);
+				bool added = false;
+				while (!added)
+				{
+					try
+					{
+						Add(p.Position.X, p);
+						added = true;
+					}
+					catch (ArgumentException)
+					{
+						p.Position = new Vector2(p.Position.X + float.Epsilon, p.Position.Y);
+					}
+				}
+
 				int index = IndexOfKey(p.Position.X);
 				int i = index - 1;
 				while (i >= 0 && Values[i].Position.X > p.Position.X - ConstantsHolder.Singleton.PheroFusionRadius)
