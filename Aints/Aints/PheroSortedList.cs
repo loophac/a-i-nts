@@ -9,6 +9,8 @@ namespace Aints
 {
 	public class PheroSortedList : SortedList<float, Pheromone>
 	{
+		private const float smallValue = 0.001f;
+
 		public void Add(Pheromone p)
 		{
 			lock (this)
@@ -23,7 +25,7 @@ namespace Aints
 					}
 					catch (ArgumentException)
 					{
-						p.Position = new Vector2(p.Position.X + float.Epsilon, p.Position.Y);
+						p.Position = new Vector2(p.Position.X + smallValue, p.Position.Y);
 					}
 				}
 
