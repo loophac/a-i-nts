@@ -114,7 +114,7 @@ namespace Aints
                 game.Components.Add(this);
             }
 			SetupBehaviours();
-            maxSpeed = 1f;
+            maxSpeed = 100f;
 
 			this.Enabled = active;
 			this.Visible = active;

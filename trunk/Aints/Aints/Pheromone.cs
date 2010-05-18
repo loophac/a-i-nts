@@ -17,7 +17,6 @@ namespace Aints
     {
 		public const float SMELL_INIT = 100;
         private const float CONDITION_DISPARITION = 20f;
-        private const float EVAPORATION = 0.995f;
 		
 		#region props
 		protected float smell;
@@ -48,7 +47,7 @@ namespace Aints
         #region override
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            smell *= EVAPORATION;
+            smell *= ConstantsHolder.Singleton.PheroEvaporationRate;
             if (smell < CONDITION_DISPARITION)
             {
                 Kill();

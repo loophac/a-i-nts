@@ -19,7 +19,7 @@ namespace Aints
     public class Main : Microsoft.Xna.Framework.Game
 	{
 		public const float G_PHEROMONES = 10f;
-        public const int NUMBER_FOOD = 0;
+        public const int NUMBER_FOOD = 20;
         public const int NUMBER_ANTS = 100;
 
 		#region props
@@ -108,7 +108,7 @@ namespace Aints
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)
             {
-				reservoir.pickAnt(/*startingPoint*/Vector2.Zero, 0f, 0);
+				reservoir.pickAnt(startingPoint/*Vector2.Zero*/, 0f, 0);
             }
 
             //ajout de la bouffe
