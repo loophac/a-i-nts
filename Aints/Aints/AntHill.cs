@@ -62,7 +62,8 @@ namespace Aints
 			if (this.food != this.prevFood)
 			{
 				//we ensure to have a dot to separate the decimal part, it's easier to import
-				tw.WriteLine(this.food.ToString("F", new CultureInfo("en-US")) + "\t" + gameTime.TotalGameTime.Ticks);
+                String s = gameTime.TotalGameTime.Ticks + "\t" + this.food.ToString();
+				tw.WriteLine( s );
 				prevFood = food;
 			}
 
