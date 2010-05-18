@@ -109,7 +109,7 @@ namespace Aints
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)
             {
-				reservoir.pickAnt(startingPoint/*Vector2.Zero*/, 0f, 0);
+				reservoir.pickAnt(startingPoint, 0f, 0);
             }
 
             //ajout de la bouffe
