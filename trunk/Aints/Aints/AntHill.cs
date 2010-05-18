@@ -33,6 +33,8 @@ namespace Aints
         public AntHill(Main game, Vector2 position)
 			:base(game,true)
         {
+			this.scale = 2f;
+
             food = 2000;
 			prevFood = food;
             this.game = game;
@@ -69,7 +71,7 @@ namespace Aints
 				if (this.food > ConstantsHolder.Singleton.BirthMinFood)
 				{
 					this.larvaSpawn = ConstantsHolder.Singleton.LarvaSpawnCooldown;
-					game.Reservoir.pickAnt(/*Position FIXME Motherfucker !*/ Vector2.Zero, 0, 0);
+					game.Reservoir.pickAnt(/*Position FIXME motherfucker*/Vector2.Zero, 0, 0);
 					this.food -= ConstantsHolder.Singleton.LarvaCost;
 				}
 				else
