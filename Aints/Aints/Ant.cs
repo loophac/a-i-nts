@@ -128,7 +128,7 @@ namespace Aints
 			life = ConstantsHolder.Singleton.LifeMax;
 			pheromonesTick = 0;
             Origin = new Vector2(8, 7);
-            choicePheromones = new Aints.Behaviours.AntBehaviourFollowPheromone(game, this, true);
+            choicePheromones = new Aints.Behaviours.AntBehaviourFollowPheromone(game, this, false);
 			// make sure it loads and draws
 			DrawOrder = 50;
 			UpdateOrder = 50;
@@ -207,8 +207,8 @@ namespace Aints
 			if ((foodCarried > 0 
 				&& pheromonesTick > ConstantsHolder.Singleton.PheromonesFood
 				&& ConstantsHolder.Singleton.PheromonesFood != 0)
-				|| (pheromonesTick > ConstantsHolder.Singleton.PheromonesNoFood
-				&& ConstantsHolder.Singleton.PheromonesNoFood != 0
+				|| (pheromonesTick > ConstantsHolder.Singleton.PheromonesGoFood
+				&& ConstantsHolder.Singleton.PheromonesGoFood != 0
 				&& this.state == AntState.goToFood))
 			{
 				pheromonesTick = 0;
@@ -251,7 +251,7 @@ namespace Aints
                             if (!goAround)
                             {
                                 Vector2 Attraction  = choicePheromones.RunBehaviour();
-                                Vector2 ifLeft = Velocity.Length() * new Vector2((float)Math.Cos(angleDirection-0.3), (float)Math.Sin(angleDirection-0.3));
+                                Vector2 ifLeft = Velocity.Length() * new Vector2((float)Math.Cos(angleDirection-0.5), (float)Math.Sin(angleDirection-0.5));
                                 float scalar1 = Attraction.X*ifLeft.X + Attraction.Y*ifLeft.Y;
                                 float scalar2 = Attraction.X * Velocity.X + Attraction.Y * Velocity.Y;
 
@@ -263,7 +263,7 @@ namespace Aints
                                     isLeft = true;
                                 }
                                 Math.Exp(ran);
-                                double threshold = 0.5 + 0.5 * (1 - Math.Exp(-Math.Abs(scalar1)));
+                                double threshold = 0.5 + 0.5 * (1 - Math.Exp(-Math.Abs(scalar1/1000)));
                                 if (ran < threshold)
                                 {
                                     goLeft = isLeft;

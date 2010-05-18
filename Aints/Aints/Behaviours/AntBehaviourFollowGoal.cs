@@ -28,15 +28,17 @@ namespace Aints.Behaviours
             {
                 
                     Vector2 follow = (((Ant)owner).Goal - owner.Position);
-
-                    follow.Normalize();
+                    if (follow != Vector2.Zero)
+                    {
+                        follow.Normalize();
+                    }
                 if (!((Ant)owner).GoAround)
                 {
                     return ((Ant)owner).GoalLover * follow;
                 }
                 else
                 {
-                    return ((Ant)owner).GoalLover * follow+owner.Velocity;
+                    return ((Ant)owner).GoalLover * 0.5f* follow+owner.Velocity;
                 }
             }
             else

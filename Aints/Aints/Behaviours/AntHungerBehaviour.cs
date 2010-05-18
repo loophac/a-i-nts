@@ -26,7 +26,10 @@ namespace Aints.Behaviours
         {
             ((Ant)owner).Hungry += HUNGER_ADDITION; 
             Vector2 hungerAttraction = ((Ant)owner).AntHill.Position - ((Ant)owner).Position;
-            hungerAttraction.Normalize();
+            if (hungerAttraction != Vector2.Zero)
+            {
+                hungerAttraction.Normalize();
+            }
             hungerAttraction *= (((Ant)owner).Hungry)/*/ConstantsHolder.Singleton.Starvation*/;
             return hungerAttraction;
         }
