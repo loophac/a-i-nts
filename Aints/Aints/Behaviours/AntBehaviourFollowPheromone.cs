@@ -55,7 +55,7 @@ namespace Aints.Behaviours
             {
                 scanPheromones.Add(smellXmin, indexPhero);
                 index = scanPheromones.IndexOfValue(indexPhero);
-            }catch(ArgumentException e){
+            }catch(ArgumentException){
                 index = scanPheromones.IndexOfKey(smellXmin);
             }
 

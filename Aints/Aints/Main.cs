@@ -73,6 +73,7 @@ namespace Aints
 			get { return this.rd.Rectangles; }
 		}
 
+		private Texture2D backGround;
 		#endregion
 
         public Main()
@@ -88,11 +89,11 @@ namespace Aints
         /// </summary>
         protected override void Initialize()
 		{
-			//to go full HD !
-			//graphics.PreferredBackBufferWidth = 1920;
-			//graphics.PreferredBackBufferHeight = 1080;
+			//fit to the bg
+			graphics.PreferredBackBufferWidth = 1024;
+			graphics.PreferredBackBufferHeight = 768;
 			//graphics.IsFullScreen = true;
-			//graphics.ApplyChanges();
+			graphics.ApplyChanges();
 
             Content.RootDirectory = "Content";
 			new FpsCounter(this, new Vector2(graphics.GraphicsDevice.Viewport.Width - 25, 5)); //displays FPS
@@ -129,6 +130,8 @@ namespace Aints
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			backGround = Content.Load<Texture2D>("map");
         }
 
 
@@ -138,7 +141,7 @@ namespace Aints
         /// </summary>
         protected override void UnloadContent()
         {
-			base.UnloadContent();
+			base.UnloadContent(); //this is necessary for the log files
         }
 
         /// <summary>
@@ -160,12 +163,11 @@ namespace Aints
         {
             GraphicsDevice.Clear(Color.LimeGreen);
 
+			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
+			spriteBatch.Draw(backGround, Vector2.Zero, Color.White);
+			spriteBatch.End();
+
             base.Draw(gameTime);
-        }
-
-        protected void processPheromones()
-        {
-
         }
     }
 }

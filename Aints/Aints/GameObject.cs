@@ -128,6 +128,8 @@ namespace Aints
 
         public override void Update(GameTime gameTime)
         {
+			Vector2 oldPos = Position;
+
             base.Update(gameTime);
 
             UpdateBehaviour(gameTime);
@@ -135,6 +137,12 @@ namespace Aints
             DoMovement(gameTime);
 
             CheckCollisions(gameTime);
+
+			if (float.IsNaN(Position.X) || float.IsNaN(Position.Y))
+			{
+				Position = oldPos;
+				Rotation = 0;
+			}
         }
 
         protected void UpdateBehaviour(GameTime gameTime)

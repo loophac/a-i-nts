@@ -74,6 +74,15 @@ namespace Aints
 						p.Kill();
 					}
 				}
+
+				for (int i = 0; i < game.Foods.Count; i++)
+				{
+					Food p = game.Foods[i];
+					if (Vector2.Distance(p.Position, mouse) < 50)
+					{
+						p.Kill();
+					}
+				}
 			}
 
 			prevButtonLeft = current_mouse.LeftButton;
