@@ -71,7 +71,7 @@ namespace Aints
 				if (this.food > ConstantsHolder.Singleton.BirthMinFood)
 				{
 					this.larvaSpawn = ConstantsHolder.Singleton.LarvaSpawnCooldown;
-					game.Reservoir.pickAnt(/*Position FIXME motherfucker*/Vector2.Zero, 0, 0);
+					game.Reservoir.pickAnt(Position, 0, 0);
 					this.food -= ConstantsHolder.Singleton.LarvaCost;
 				}
 				else

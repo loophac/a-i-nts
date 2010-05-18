@@ -52,6 +52,17 @@ namespace Aints
             }
         }
 
+		public override void Draw(GameTime gameTime)
+		{
+			SpriteBatch spriteBatch = game.SpriteBatch;
+			if (Sprite != null)
+			{
+				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
+				spriteBatch.Draw(Sprite, Position, null, Color.Red, Rotation, Origin, Scale, SpriteEffects.None, 1f);
+				spriteBatch.End();
+			}
+		}
+
         public override void Kill()
         {
             base.Kill();

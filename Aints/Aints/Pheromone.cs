@@ -76,12 +76,12 @@ namespace Aints
 
 		public override void Draw(GameTime gameTime)
 		{
-			byte alpha = (byte)Math.Min(smell * 2.5f, 255f);
+			byte alpha = (byte)Math.Min(smell, 255f);
 			SpriteBatch spriteBatch = game.SpriteBatch;
 			if (Sprite != null)
 			{
 				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
-				spriteBatch.Draw(Sprite, Position, null, new Color(Color.White, alpha), Rotation, Origin, Scale, SpriteEffects.None, 1f);
+				spriteBatch.Draw(Sprite, Position, null, new Color(Color.CornflowerBlue, alpha), Rotation, Origin, Scale, SpriteEffects.None, 1f);
 				spriteBatch.End();
 			}
 		}
