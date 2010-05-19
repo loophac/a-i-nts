@@ -105,6 +105,7 @@
     <Compile Include="Behaviours\AntBehaviourRandom.cs" />
     <Compile Include="Behaviours\AntHungerBehaviour.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
+    <Compile Include="Cemetery.cs" />
     <Compile Include="ConstantsForm.cs">
       <SubType>Form</SubType>
     </Compile>
