@@ -65,7 +65,9 @@ namespace Aints
 		[CategoryAttribute("Ants Properties"),
 		  Description("An ant dies if it becomes more hungry than this value")]
 		public int Starvation { get; set; }
-
+        [CategoryAttribute("Ants Properties"),
+            Description("Halflife of the ant in frame, liked to the probality to die at each frame")]
+        public int HalfLife { get; set; }
 
 		[CategoryAttribute("World Properties"),
 		  Description("Two pheromones are fusionned into one if they are closer than this value.")]

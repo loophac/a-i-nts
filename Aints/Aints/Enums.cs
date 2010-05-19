@@ -17,6 +17,7 @@
         lookForFood,
         bringBackFood,
         goToFood,
-        goAround
+        goAround,
+        transportCorpse
     }
 }
