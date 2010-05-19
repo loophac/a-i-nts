@@ -73,6 +73,9 @@ namespace Aints
 		  Description("Two pheromones are fusionned into one if they are closer than this value.")]
 		public float PheroFusionRadius { get; set; }
 		[CategoryAttribute("World Properties"),
+		  Description("A dead ant will go to a cemetery if it is closer than this value.")]
+		public float CemeteryFusionRadius { get; set; }
+		[CategoryAttribute("World Properties"),
 		  Description("Each pheromone smell is multiplied by this value each frame.")]
 		public float PheroEvaporationRate { get; set; }
 
