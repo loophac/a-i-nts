@@ -100,7 +100,7 @@ namespace Aints
 		}
 
 
-        protected C antHill;
+		protected AntHill antHill;
         public AntHill AntHill
         {
             get { return this.antHill; }
@@ -348,6 +348,21 @@ namespace Aints
         {
             Enabled = false;
             Sprite = game.Content.Load<Texture2D>("ant_dead");
+
+			bool stored = false;
+			foreach (Cemetery c in game.Cemeteries)
+			{
+				if (Vector2.Distance(this.Position, c.Position) < ConstantsHolder.Singleton.CemeteryFusionRadius)
+				{
+					c.Add(this);
+					stored = true;
+					break;
+				}
+			}
+			if (!stored)
+			{
+				game.Cemeteries.Add(new Cemetery(this));
+			}
         }
 
 		#endregion
