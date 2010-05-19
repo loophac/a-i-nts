@@ -48,6 +48,7 @@ namespace Aints
         {
             base.LoadContent();
             Sprite = game.Content.Load<Texture2D>("antHill");
+			origin = new Vector2(Sprite.Width, Sprite.Height); //this is dirty, hard coded scale 2
         }
 
 		protected override void UnloadContent()
@@ -61,7 +62,6 @@ namespace Aints
 			//save food evolution in a log file for analysis
 			if (this.food != this.prevFood)
 			{
-				//we ensure to have a dot to separate the decimal part, it's easier to import
                 String s = gameTime.TotalGameTime.Ticks + "\t" + this.food.ToString();
 				tw.WriteLine( s );
 				prevFood = food;
