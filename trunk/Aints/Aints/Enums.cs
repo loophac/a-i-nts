@@ -18,6 +18,7 @@
         bringBackFood,
         goToFood,
         goAround,
-        transportCorpse
+        transportCorpse,
+        goToCorpse
     }
 }

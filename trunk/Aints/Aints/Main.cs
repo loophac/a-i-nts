@@ -73,6 +73,13 @@ namespace Aints
 			get { return this.rd.Rectangles; }
 		}
 
+        private List<Cemetery> cemeteries;
+        public List<Cemetery> Cemeteries
+        {
+            get { return this.Cemeteries; }
+            set { this.Cemeteries = value; }
+        }
+
 		private Texture2D backGround;
 		#endregion
 
@@ -105,6 +112,7 @@ namespace Aints
 			Vector2 startingPoint = new Vector2(Random.Next(GraphicsDevice.Viewport.Width), Random.Next(GraphicsDevice.Viewport.Height));
 			antHill = new AntHill(this, startingPoint);
 			this.reservoir = new Pools(this);
+            this.Cemeteries = new List<Cemetery>() ;
 
 			//ajout des fourmis
             for (int i = 0; i < NUMBER_ANTS; i++)

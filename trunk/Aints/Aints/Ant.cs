@@ -99,12 +99,17 @@ namespace Aints
 			set { this.state = value; }
 		}
 
-		protected AntHill antHill;
-		public AntHill AntHill
-		{
-			get { return this.antHill; }
-			set { this.antHill = value; }
-		}
+
+        protected C antHill;
+        public AntHill AntHill
+        {
+            get { return this.antHill; }
+            set { this.antHill = value; }
+        }
+
+		protected Cemetery cemetery;
+        protected Vector2 cemeteryPosition;
+        protected Ant cadaver;
 
 		protected Food food;
 		protected Vector2 foodPosition;		
@@ -159,6 +164,7 @@ namespace Aints
 				Kill();
 			}
 
+            //find closest food point
 			foreach (Food possibleFood in game.Foods)
 			{
 				if (Vector2.Distance(possibleFood.Position, Position) < ConstantsHolder.Singleton.Vision
@@ -172,6 +178,21 @@ namespace Aints
 					}
 				}
 			}
+
+            //find bigest cemetery
+            foreach (Cemetery possibleCemetery in game.Cemeteries)
+            {
+                if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision
+                    && (food == null || Vector2.Distance(possibleCemetery.Position, AntHill.Position) < Vector2.Distance(food.Position, AntHill.Position)))
+                {
+                    cemetery = possibleCemetery;
+                    foodPosition = possibleCemetery.Position;
+                    if (state == AntState.transportCorpse)
+                    {
+                        goal = possibleCemetery.Position;
+                    }
+                }
+            }
 
 			this.previousPosition = this.position;
 		}
@@ -366,6 +387,22 @@ namespace Aints
 						ChangeState(AntState.goToFood);
 					}
 					break;
+                case AntState.transportCorpse:
+                    if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
+                    {
+                        game.AntHill.Food += foodCarried;
+                        foodCarried = 0;
+                        ChangeState(AntState.goToFood);
+                    }
+                    break;
+                case AntState.goToCorpse:
+                    if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
+                    {
+                        game.AntHill.Food += foodCarried;
+                        foodCarried = 0;
+                        ChangeState(AntState.transportCorpse);
+                    }
+                    break;
 			}
 		}
 
@@ -400,7 +437,7 @@ namespace Aints
                     warLover = 0.1f;
                     goalLover = ConstantsHolder.Singleton.GoFoodGoal;
                     pheromoneLover = ConstantsHolder.Singleton.GoFoodPheromones;
-                    Goal = foodPosition;
+                    Goal = cemeteryPosition;
                     break;
 			}
 		}
