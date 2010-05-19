@@ -139,6 +139,12 @@ namespace Aints
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+            //the ant have a certain probability to die each frame
+            double ran = game.Random.NextDouble();
+            if (ran < 0.5 / ConstantsHolder.Singleton.HalfLife)
+            {
+                Kill();
+            }
 			CheckState();
 			if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
 			{
@@ -317,6 +323,12 @@ namespace Aints
 			}
 		}
 
+        public override void Kill()
+        {
+            Enabled = false;
+            Sprite = game.Content.Load<Texture2D>("ant_dead");
+        }
+
 		#endregion
 
 		protected virtual void CheckState()
@@ -357,7 +369,6 @@ namespace Aints
 			}
 		}
 
-
 		protected virtual void ChangeState(AntState newState)
 		{
 			state = newState;
@@ -384,8 +395,17 @@ namespace Aints
 					pheromoneLover = ConstantsHolder.Singleton.GoFoodPheromones;
 					Goal = foodPosition;
 					break;
+                case AntState.transportCorpse:
+                    randomLover = ConstantsHolder.Singleton.GoFoodRandom;
+                    warLover = 0.1f;
+                    goalLover = ConstantsHolder.Singleton.GoFoodGoal;
+                    pheromoneLover = ConstantsHolder.Singleton.GoFoodPheromones;
+                    Goal = foodPosition;
+                    break;
 			}
 		}
+
+
 
 		protected void dropPheromone(TypePheromone type)
 		{
