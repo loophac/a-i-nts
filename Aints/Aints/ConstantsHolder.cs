@@ -78,6 +78,9 @@ namespace Aints
 		[CategoryAttribute("World Properties"),
 		  Description("Each pheromone smell is multiplied by this value each frame.")]
 		public float PheroEvaporationRate { get; set; }
+		[CategoryAttribute("World Properties"),
+		Description("A cadaver closer than this distance will be moved for sanity reasons")]
+		public float SainityDistance { get; set; }
 
 
 		[CategoryAttribute("Hill Properties"),
@@ -105,9 +108,6 @@ namespace Aints
         [CategoryAttribute("Ants Behaviors"),
           Description("The highest the value, the more focused on the goal the ants behave (when looking for food)")]
         public float TransportGoal { get; set; }
-        [CategoryAttribute("Ants Behaviors"),
-        Description("Sainity distance of cadavers")]
-        public float SainityDistance { get; set; }
         [CategoryAttribute("Ants Behaviors"),
           Description("The highest the value, the more affected by the pheromones the ants will be (when looking for food)")]
         public float TransportPheromones { get; set; }
