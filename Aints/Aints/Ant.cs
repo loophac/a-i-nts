@@ -189,14 +189,19 @@ namespace Aints
             {
                 Cemetery possibleCemetery = game.Cemeteries[i];
 				//within view range
-                if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision && possibleCemetery.Count!=0)
+                if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision 
+					&& possibleCemetery.Count!=0)
                 {
                     //find bigest cemetery
-                    if ( Vector2.Distance(possibleCemetery.Position,antHill.Position)>=ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
+                    if ( Vector2.Distance(possibleCemetery.Position,antHill.Position)>=ConstantsHolder.Singleton.SainityDistance 
+						&& (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
                     {
                         //if the ant had a previous best cemetery, it decided to move it in the new one
                         bool needToClean = false;
-                        if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
+                        if (cemeteryBest != null 
+							&& cemeteryBest != possibleCemetery 
+							&& state != AntState.goToCorpse 
+							&& state != AntState.transportCorpse)
                         {
                             cemeteryToClean = cemeteryBest;
                             cemeteryToCleanPos = cemeteryToClean.Position;
@@ -217,29 +222,33 @@ namespace Aints
                             ChangeState(AntState.backToClean);
                         }
                     }
-					//with a decent distance to the hill
-					if (Vector2.Distance(possibleCemetery.Position, antHill.Position) >= ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count >= cemeterySmell))
-					{
-						bool needToClean = false;
-						if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
-						{
-							cemeteryToClean = cemeteryBest;
-							cemeteryToCleanPos = cemeteryToClean.Position;
-							previousState = state;
-							needToClean = true;
-						}
-						cemeteryBest = possibleCemetery;
-						cemeterySmell = possibleCemetery.Count;
-						if (state == AntState.transportCorpse)
-						{
-							goal = possibleCemetery.Position;
-							goalLover = ConstantsHolder.Singleton.TransportGoal;
-						}
-						if (needToClean)
-						{
-							ChangeState(AntState.backToClean);
-						}
-					}
+					////with a decent distance to the hill
+					//if (Vector2.Distance(possibleCemetery.Position, antHill.Position) >= ConstantsHolder.Singleton.SainityDistance 
+					//    && (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
+					//{
+					//    bool needToClean = false;
+					//    if (cemeteryBest != null 
+					//        && cemeteryBest != possibleCemetery 
+					//        && state != AntState.goToCorpse 
+					//        && state != AntState.transportCorpse)
+					//    {
+					//        cemeteryToClean = cemeteryBest;
+					//        cemeteryToCleanPos = cemeteryToClean.Position;
+					//        previousState = state;
+					//        needToClean = true;
+					//    }
+					//    cemeteryBest = possibleCemetery;
+					//    cemeterySmell = possibleCemetery.Count;
+					//    if (state == AntState.transportCorpse)
+					//    {
+					//        goal = possibleCemetery.Position;
+					//        goalLover = ConstantsHolder.Singleton.TransportGoal;
+					//    }
+					//    if (needToClean)
+					//    {
+					//        ChangeState(AntState.backToClean);
+					//    }
+					//}
 
                     //Update the size of the biggest known cemetery
                     if (possibleCemetery == cemeteryBest)
@@ -255,8 +264,6 @@ namespace Aints
                         //it would be maybe cleaner to prevent that
                         if (cadaver != null)
                         {
-							//possibleCemetery.Remove(cadaver); why not ?
-
                             cemeteryToClean = possibleCemetery;
                             cemeteryToCleanPos = cemeteryToClean.Position;
                             previousState = state;

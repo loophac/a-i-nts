@@ -65,6 +65,7 @@ namespace Aints
 
         public override void Kill()
         {
+			this.Amount = 0;
             base.Kill();
             game.Foods.Remove(this);
         }
