@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ConstantsHolder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LifeMax>20</LifeMax>
-  <PheromonesNoFood>0</PheromonesNoFood>
+  <PheromonesGoFood>10</PheromonesGoFood>
   <PheromonesFood>3</PheromonesFood>
   <CarryMax>10</CarryMax>
   <Vision>20</Vision>
   <EatingRadius>15</EatingRadius>
   <Starvation>20</Starvation>
+  <HalfLife>4000</HalfLife>
   <PheroFusionRadius>10</PheroFusionRadius>
-  <PheroEvaporationRate>0.999</PheroEvaporationRate>
-  <LarvaSpawnCooldown>180</LarvaSpawnCooldown>
-  <BirthMinFood>500</BirthMinFood>
-  <LarvaCost>50</LarvaCost>
-  <_GlobalInertia>1.1</_GlobalInertia>
-  <ScoutRandom>100</ScoutRandom>
-  <ScoutGoal>-2</ScoutGoal>
-  <ScoutPheromones>1</ScoutPheromones>
-  <GoFoodRandom>100</GoFoodRandom>
-  <GoFoodGoal>50</GoFoodGoal>
-  <GoFoodPheromones>1</GoFoodPheromones>
-  <BringFoodRandom>100</BringFoodRandom>
-  <BringFoodGoal>50</BringFoodGoal>
-  <BringFoodPheromones>1</BringFoodPheromones>
+  <CemeteryFusionRadius>10</CemeteryFusionRadius>
+  <PheroEvaporationRate>0.99</PheroEvaporationRate>
+  <LarvaSpawnCooldown>150</LarvaSpawnCooldown>
+  <BirthMinFood>1000</BirthMinFood>
+  <LarvaCost>40</LarvaCost>
+  <_GlobalInertia>1</_GlobalInertia>
+  <TransportRandom>30</TransportRandom>
+  <TransportGoal>60</TransportGoal>
+  <SainityDistance>200</SainityDistance>
+  <TransportPheromones>0</TransportPheromones>
+  <ScoutRandom>50</ScoutRandom>
+  <ScoutGoal>-4</ScoutGoal>
+  <ScoutPheromones>5</ScoutPheromones>
+  <GoFoodRandom>30</GoFoodRandom>
+  <GoFoodGoal>60</GoFoodGoal>
+  <GoFoodPheromones>2</GoFoodPheromones>
+  <BringFoodRandom>30</BringFoodRandom>
+  <BringFoodGoal>60</BringFoodGoal>
+  <BringFoodPheromones>2</BringFoodPheromones>
 </ConstantsHolder>
