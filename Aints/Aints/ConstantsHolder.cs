@@ -98,7 +98,22 @@ namespace Aints
 		  Description("The previous deplacement vector will be added this times to the new one")]
 		public float _GlobalInertia { get; set; }
 
-		#region scout
+        #region transportCorpse
+        [CategoryAttribute("Ants Behaviors"),
+          Description("The highest the value, the more random the ants behave (when looking for food)")]
+        public float TransportRandom { get; set; }
+        [CategoryAttribute("Ants Behaviors"),
+          Description("The highest the value, the more focused on the goal the ants behave (when looking for food)")]
+        public float TransportGoal { get; set; }
+        [CategoryAttribute("Ants Behaviors"),
+        Description("Sainity distance of cadavers")]
+        public float SainityDistance { get; set; }
+        [CategoryAttribute("Ants Behaviors"),
+          Description("The highest the value, the more affected by the pheromones the ants will be (when looking for food)")]
+        public float TransportPheromones { get; set; }
+        #endregion
+        
+        #region scout
 		[CategoryAttribute("Ants Behaviors"),
 		  Description("The highest the value, the more random the ants behave (when looking for food)")]
 		public float ScoutRandom { get; set; }

@@ -19,6 +19,7 @@
         goToFood,
         goAround,
         transportCorpse,
-        goToCorpse
+        goToCorpse,
+        backToClean
     }
 }

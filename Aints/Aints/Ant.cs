@@ -107,9 +107,14 @@ namespace Aints
             set { this.antHill = value; }
         }
 
-		protected Cemetery cemetery;
-        protected Vector2 cemeteryPosition;
+		protected Cemetery cemeteryBest;
+        protected Cemetery cemeteryToClean;
+        protected Vector2 cemeteryToCleanPos;
+
+        protected int cemeterySmell;
         protected Ant cadaver;
+        protected AntState previousState;
+        protected int leftToClean;
 
 		protected Food food;
 		protected Vector2 foodPosition;		
@@ -141,61 +146,104 @@ namespace Aints
 		#endregion
 
 		#region override
-		public override void Update(GameTime gameTime)
-		{
-			base.Update(gameTime);
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
             //the ant have a certain probability to die each frame
             double ran = game.Random.NextDouble();
             if (ran < 0.5 / ConstantsHolder.Singleton.HalfLife)
             {
                 Kill();
             }
-			CheckState();
-			if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
-			{
-				if (AntHill.Food >= 0)
-				{
-					AntHill.Food -= Hungry;
-					Hungry = 0;
-				}
-			}
-			if (Hungry > ConstantsHolder.Singleton.Starvation)
-			{
-				Kill();
-			}
+            CheckState();
+            if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
+            {
+                if (AntHill.Food >= 0)
+                {
+                    AntHill.Food -= Hungry;
+                    Hungry = 0;
+                }
+            }
+            if (Hungry > ConstantsHolder.Singleton.Starvation)
+            {
+                Kill();
+            }
 
             //find closest food point
-			foreach (Food possibleFood in game.Foods)
-			{
-				if (Vector2.Distance(possibleFood.Position, Position) < ConstantsHolder.Singleton.Vision
-					&& (food == null || Vector2.Distance(possibleFood.Position, AntHill.Position) < Vector2.Distance(food.Position, AntHill.Position)))
-				{
-					food = possibleFood;
-					foodPosition = possibleFood.Position;
-					if (state == AntState.goToFood)
-					{
-						goal = food.Position;
-					}
-				}
-			}
-
-            //find bigest cemetery
-            foreach (Cemetery possibleCemetery in game.Cemeteries)
+            foreach (Food possibleFood in game.Foods)
             {
-                if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision
-                    && (food == null || Vector2.Distance(possibleCemetery.Position, AntHill.Position) < Vector2.Distance(food.Position, AntHill.Position)))
+                if (Vector2.Distance(possibleFood.Position, Position) < ConstantsHolder.Singleton.Vision
+                    && (food == null || Vector2.Distance(possibleFood.Position, AntHill.Position) < Vector2.Distance(food.Position, AntHill.Position)))
                 {
-                    cemetery = possibleCemetery;
-                    foodPosition = possibleCemetery.Position;
-                    if (state == AntState.transportCorpse)
+                    food = possibleFood;
+                    foodPosition = possibleFood.Position;
+                    if (state == AntState.goToFood)
                     {
-                        goal = possibleCemetery.Position;
+                        goal = food.Position;
                     }
                 }
             }
 
-			this.previousPosition = this.position;
-		}
+
+            for (int i = 0; i < game.Cemeteries.Count; i++)
+            {
+                Cemetery possibleCemetery = game.Cemeteries[i];
+                if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision && possibleCemetery.Count!=0)
+                {
+                    //find bigest cemetery
+                    if ( Vector2.Distance(possibleCemetery.Position,antHill.Position)>=ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
+                    {
+                        bool needToClean = false;
+                        if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
+                        {
+                            cemeteryToClean = cemeteryBest;
+                            cemeteryToCleanPos = cemeteryToClean.Position;
+                            previousState = state;
+                            needToClean = true;
+                        }
+                        cemeteryBest = possibleCemetery;
+                        cemeterySmell = possibleCemetery.Count;
+                        if (state == AntState.transportCorpse)
+                        {
+                            goal = possibleCemetery.Position;
+                            goalLover = ConstantsHolder.Singleton.TransportGoal;
+                        }
+                        if (needToClean)
+                        {
+                            ChangeState(AntState.backToClean);
+                        }
+                    }
+
+                    if (possibleCemetery == cemeteryBest)
+                    {
+                        cemeterySmell = possibleCemetery.Count;
+                    }else if (state != AntState.goToCorpse && state != AntState.transportCorpse  )
+                    {
+                        cadaver = possibleCemetery.Last();
+                        if (cadaver != null)
+                        {
+                            cemeteryToClean = possibleCemetery;
+                            cemeteryToCleanPos = cemeteryToClean.Position;
+                            previousState = state;
+                            leftToClean = cemeteryToClean.Count;
+                            ChangeState(AntState.goToCorpse);
+                        }
+                        else
+                        {
+                            game.Cemeteries.Remove(possibleCemetery);
+                            if (state == AntState.backToClean)
+                            {
+                                cemeteryToClean = null;
+                                ChangeState(previousState);
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.previousPosition = this.position;
+
+        }
 		protected override void LoadContent()
 		{
 			Sprite = game.Content.Load<Texture2D>("ant");
@@ -403,19 +451,88 @@ namespace Aints
 					}
 					break;
                 case AntState.transportCorpse:
-                    if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
+                    cadaver.Position = position;
+                    if (cemeteryBest == null)
                     {
-                        game.AntHill.Food += foodCarried;
-                        foodCarried = 0;
-                        ChangeState(AntState.goToFood);
+                        if (Vector2.Distance(position, antHill.Position) > ConstantsHolder.Singleton.SainityDistance)
+                        {
+                            //double tap!
+                            cadaver.Kill();
+                            if (leftToClean > 0)
+                            {
+                                ChangeState(AntState.backToClean);
+                            }
+                            else
+                            {
+                                ChangeState(previousState);
+                            }
+                        }
                     }
+                    else
+                    {
+                        if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.EatingRadius)
+                        {
+                            if (cemeteryBest.Count == 0)
+                            {
+                                cemeteryBest = null;
+                                //double tap!
+                                cadaver.Kill();
+                            }
+                            else
+                            {
+                                cemeteryBest.Add(cadaver);
+                            }
+                            cadaver = null;
+                            if (leftToClean > 0)
+                            {
+                                ChangeState(AntState.backToClean);
+                            }
+                            else
+                            {
+                                ChangeState(previousState);
+                            }
+                            break;
+                        }   
+                    }
+                    
                     break;
                 case AntState.goToCorpse:
-                    if (Vector2.Distance(AntHill.Position, Position) < ConstantsHolder.Singleton.EatingRadius)
+                    if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.EatingRadius)
                     {
-                        game.AntHill.Food += foodCarried;
-                        foodCarried = 0;
-                        ChangeState(AntState.transportCorpse);
+                        //if the corpse have been taken by an other ant, it return to normal activity
+                        if (cemeteryToClean.Contains(cadaver))
+                        {
+                            cemeteryToClean.Remove(cadaver);
+                            leftToClean = cemeteryToClean.Count;
+                            if (cemeteryToClean.Count == 0)
+                            {
+                                game.Cemeteries.Remove(cemeteryToClean);
+                                cemeteryToClean = null;
+                                
+                            }
+                            
+                            ChangeState(AntState.transportCorpse);
+                        }
+                        else
+                        {
+                            ChangeState(previousState);
+                        }
+                        
+                    }
+                    break;
+                case AntState.backToClean:
+                    if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.Vision)
+                    {
+                        if (cemeteryToClean == null || cemeteryToClean.Count == 0)
+                        {
+                            leftToClean = 0;
+                            cemeteryToClean = null;
+                            if (previousState == AntState.backToClean)
+                            {
+                                previousState = AntState.lookForFood;
+                            }
+                            ChangeState(previousState);
+                        }
                     }
                     break;
 			}
@@ -447,17 +564,38 @@ namespace Aints
 					pheromoneLover = ConstantsHolder.Singleton.GoFoodPheromones;
 					Goal = foodPosition;
 					break;
-                case AntState.transportCorpse:
+                case AntState.goToCorpse:
                     randomLover = ConstantsHolder.Singleton.GoFoodRandom;
                     warLover = 0.1f;
                     goalLover = ConstantsHolder.Singleton.GoFoodGoal;
+                    pheromoneLover = ConstantsHolder.Singleton.TransportPheromones;
+                    Goal = cadaver.Position;
+                    break;
+                case AntState.backToClean:
+                    randomLover = ConstantsHolder.Singleton.GoFoodRandom;
+                    warLover = 0.1f;
+                    goalLover = ConstantsHolder.Singleton.GoFoodGoal;
+                    pheromoneLover = ConstantsHolder.Singleton.TransportPheromones;
+                    Goal = cemeteryToCleanPos;
+                    break;
+                case AntState.transportCorpse:
+                    randomLover = ConstantsHolder.Singleton.TransportRandom;
+                    warLover = 0.1f;
+                    if (cemeteryBest == null)
+                    {
+                        goalLover = -ConstantsHolder.Singleton.TransportGoal;
+                        Goal = antHill.Position;
+                    }
+                    else
+                    {
+                        goalLover = ConstantsHolder.Singleton.TransportGoal;
+                        Goal = cemeteryBest.Position;
+                    }
                     pheromoneLover = ConstantsHolder.Singleton.GoFoodPheromones;
-                    Goal = cemeteryPosition;
+                    
                     break;
 			}
 		}
-
-
 
 		protected void dropPheromone(TypePheromone type)
 		{
