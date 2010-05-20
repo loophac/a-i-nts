@@ -151,7 +151,7 @@ namespace Aints
             base.Update(gameTime);
             //the ant have a certain probability to die each frame
             double ran = game.Random.NextDouble();
-            if (ran < 0.5 / ConstantsHolder.Singleton.HalfLife)
+            if (ran < 0.5f / ConstantsHolder.Singleton.HalfLife)
             {
                 Kill();
             }
@@ -184,44 +184,48 @@ namespace Aints
                 }
             }
 
-
+			//find bigest cemetery around
             for (int i = 0; i < game.Cemeteries.Count; i++)
             {
                 Cemetery possibleCemetery = game.Cemeteries[i];
+				//within view range
                 if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision && possibleCemetery.Count!=0)
                 {
-                    //find bigest cemetery
-                    if ( Vector2.Distance(possibleCemetery.Position,antHill.Position)>=ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
-                    {
-                        bool needToClean = false;
-                        if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
-                        {
-                            cemeteryToClean = cemeteryBest;
-                            cemeteryToCleanPos = cemeteryToClean.Position;
-                            previousState = state;
-                            needToClean = true;
-                        }
-                        cemeteryBest = possibleCemetery;
-                        cemeterySmell = possibleCemetery.Count;
-                        if (state == AntState.transportCorpse)
-                        {
-                            goal = possibleCemetery.Position;
-                            goalLover = ConstantsHolder.Singleton.TransportGoal;
-                        }
-                        if (needToClean)
-                        {
-                            ChangeState(AntState.backToClean);
-                        }
-                    }
+					//with a decent distance to the hill
+					if (Vector2.Distance(possibleCemetery.Position, antHill.Position) >= ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count >= cemeterySmell))
+					{
+						bool needToClean = false;
+						if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
+						{
+							cemeteryToClean = cemeteryBest;
+							cemeteryToCleanPos = cemeteryToClean.Position;
+							previousState = state;
+							needToClean = true;
+						}
+						cemeteryBest = possibleCemetery;
+						cemeterySmell = possibleCemetery.Count;
+						if (state == AntState.transportCorpse)
+						{
+							goal = possibleCemetery.Position;
+							goalLover = ConstantsHolder.Singleton.TransportGoal;
+						}
+						if (needToClean)
+						{
+							ChangeState(AntState.backToClean);
+						}
+					}
 
                     if (possibleCemetery == cemeteryBest)
                     {
                         cemeterySmell = possibleCemetery.Count;
-                    }else if (state != AntState.goToCorpse && state != AntState.transportCorpse  )
+                    }
+					else if (state != AntState.goToCorpse && state != AntState.transportCorpse  )
                     {
                         cadaver = possibleCemetery.Last();
                         if (cadaver != null)
                         {
+							//possibleCemetery.Remove(cadaver); why not ?
+
                             cemeteryToClean = possibleCemetery;
                             cemeteryToCleanPos = cemeteryToClean.Position;
                             previousState = state;
@@ -230,6 +234,7 @@ namespace Aints
                         }
                         else
                         {
+							//we don't keep empty cemeteries
                             game.Cemeteries.Remove(possibleCemetery);
                             if (state == AntState.backToClean)
                             {
