@@ -76,8 +76,8 @@ namespace Aints
         private List<Cemetery> cemeteries;
         public List<Cemetery> Cemeteries
         {
-            get { return this.Cemeteries; }
-            set { this.Cemeteries = value; }
+            get { return this.cemeteries; }
+            set { this.cemeteries = value; }
         }
 
 		private Texture2D backGround;
