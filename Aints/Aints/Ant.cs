@@ -191,6 +191,32 @@ namespace Aints
 				//within view range
                 if (Vector2.Distance(possibleCemetery.Position, Position) < ConstantsHolder.Singleton.Vision && possibleCemetery.Count!=0)
                 {
+                    //find bigest cemetery
+                    if ( Vector2.Distance(possibleCemetery.Position,antHill.Position)>=ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count > cemeterySmell))
+                    {
+                        //if the ant had a previous best cemetery, it decided to move it in the new one
+                        bool needToClean = false;
+                        if (cemeteryBest != null && cemeteryBest != possibleCemetery && state != AntState.goToCorpse && state != AntState.transportCorpse)
+                        {
+                            cemeteryToClean = cemeteryBest;
+                            cemeteryToCleanPos = cemeteryToClean.Position;
+                            previousState = state;
+                            needToClean = true;
+                        }
+                        //update the biggest known cemetery
+                        cemeteryBest = possibleCemetery;
+                        cemeterySmell = possibleCemetery.Count;
+                        if (state == AntState.transportCorpse)
+                        {
+                            goal = possibleCemetery.Position;
+                            goalLover = ConstantsHolder.Singleton.TransportGoal;
+                        }
+                        //start to clean the old cemetery
+                        if (needToClean)
+                        {
+                            ChangeState(AntState.backToClean);
+                        }
+                    }
 					//with a decent distance to the hill
 					if (Vector2.Distance(possibleCemetery.Position, antHill.Position) >= ConstantsHolder.Singleton.SainityDistance && (cemeteryBest == null || possibleCemetery.Count >= cemeterySmell))
 					{
@@ -215,13 +241,18 @@ namespace Aints
 						}
 					}
 
+                    //Update the size of the biggest known cemetery
                     if (possibleCemetery == cemeteryBest)
                     {
                         cemeterySmell = possibleCemetery.Count;
                     }
-					else if (state != AntState.goToCorpse && state != AntState.transportCorpse  )
+                    //if the cemetery seen is not the biggest the ant start to clean it
+                    //if the ant is not already carrying a corpse a going to a corpse
+                    else if (state != AntState.goToCorpse && state != AntState.transportCorpse  )
                     {
                         cadaver = possibleCemetery.Last();
+                        //handle a little bug that sometime the cemetery have one null cadaver instead of nothing
+                        //it would be maybe cleaner to prevent that
                         if (cadaver != null)
                         {
 							//possibleCemetery.Remove(cadaver); why not ?
@@ -229,6 +260,7 @@ namespace Aints
                             cemeteryToClean = possibleCemetery;
                             cemeteryToCleanPos = cemeteryToClean.Position;
                             previousState = state;
+                            //remember the size to know if there is a need to come back to clean
                             leftToClean = cemeteryToClean.Count;
                             ChangeState(AntState.goToCorpse);
                         }
@@ -457,6 +489,7 @@ namespace Aints
 					break;
                 case AntState.transportCorpse:
                     cadaver.Position = position;
+                    //if the ant don't know a cemetery it will just put the corpse at a sanitary distance of the anthill
                     if (cemeteryBest == null)
                     {
                         if (Vector2.Distance(position, antHill.Position) > ConstantsHolder.Singleton.SainityDistance)
@@ -475,8 +508,10 @@ namespace Aints
                     }
                     else
                     {
+                        // the ant reaches the biggest known cemetery it put the cadaver in the cemetery
                         if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.EatingRadius)
                         {
+                            //if the best known have desapeared the ant just put the corpse at a sanitary distance from the anthill
                             if (cemeteryBest.Count == 0)
                             {
                                 cemeteryBest = null;
@@ -488,6 +523,7 @@ namespace Aints
                                 cemeteryBest.Add(cadaver);
                             }
                             cadaver = null;
+                            //go back to clean the previous cemetery if it is not known as empty
                             if (leftToClean > 0)
                             {
                                 ChangeState(AntState.backToClean);
@@ -504,11 +540,12 @@ namespace Aints
                 case AntState.goToCorpse:
                     if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.EatingRadius)
                     {
-                        //if the corpse have been taken by an other ant, it return to normal activity
+                        //take a cadaver in a cemetery when it reach it   
                         if (cemeteryToClean.Contains(cadaver))
                         {
                             cemeteryToClean.Remove(cadaver);
                             leftToClean = cemeteryToClean.Count;
+                            //if taking the corpse clean the cemetery it will be destroyed
                             if (cemeteryToClean.Count == 0)
                             {
                                 game.Cemeteries.Remove(cemeteryToClean);
@@ -518,6 +555,7 @@ namespace Aints
                             
                             ChangeState(AntState.transportCorpse);
                         }
+                        //if the corpse have been taken by an other ant, it return to normal activity
                         else
                         {
                             ChangeState(previousState);
@@ -525,7 +563,10 @@ namespace Aints
                         
                     }
                     break;
+                //go back the previous cemetery to clean it
                 case AntState.backToClean:
+                    //if the cemetery is empty the ant remove it and go back to its activity
+                    //if it's full the ant will automatically change state to goforCorpse from the cemetery scan in the update function
                     if (Vector2.Distance(goal, Position) < ConstantsHolder.Singleton.Vision)
                     {
                         if (cemeteryToClean == null || cemeteryToClean.Count == 0)
