@@ -1,0 +1,1 @@
+Artificial intelligence project of ants simulation
